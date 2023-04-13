@@ -18,7 +18,9 @@ export const TaskDescription = styled.View`
 `;
 
 export const TaskFooter = styled.View`
-
+flex-direction: row;
+justify-content: space-between;
+align-items:center;
 `;
 
 export const TaskStatus = styled.View`
@@ -26,9 +28,16 @@ flex-direction: row;
 align-items:center;
 gap: 8px;
 `;
-export const TaskAction = styled.View``;
 
 export const TaskIcon = styled.Image`
-    width: 16px;
-    height: 16px;
+width: 16px;
+height: 16px;
+resize-mode: contain;
+`;
+
+export const TaskAction = styled.View`
+flex-direction:row;
+justify-content: space-between;
+align-items:center;
+gap: 16px;
 `;

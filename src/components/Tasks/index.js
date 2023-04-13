@@ -2,31 +2,44 @@ import { Text } from '../Text';
 import { Task, TaskAction, TaskDescription, TaskFooter, TaskHeader, TaskIcon, TaskStatus } from './styles';
 
 import pending from '../../assets/images/pending.png';
+import done from '../../assets/images/done.png';
 import excluir from '../../assets/images/delete.png';
 import edit from '../../assets/images/edit.png';
+import { FlatList, TouchableOpacity } from 'react-native';
 
-export default function Tasks(){
-    return(
-        <Task>
-            <TaskHeader>
-                <Text size={18} weight="600">Estudar React Native</Text>
-            </TaskHeader>
+export default function Tasks({tasks}) {
+    return (
+        <FlatList
+            data={tasks}
+            keyExtractor={task => task._id}
+            renderItem={({ item: task }) => (
+                <Task>
+                    <TaskHeader>
+                        <Text size={18} weight="600">{task.title}</Text>
+                    </TaskHeader>
 
-            <TaskDescription>
-                <Text opacity={0.5}>Fazer a Atividade passada na ultima aula</Text>
-            </TaskDescription>
+                    <TaskDescription>
+                        <Text opacity={0.5}>{task.description}</Text>
+                    </TaskDescription>
 
-            <TaskFooter>
-                <TaskStatus>
-                    <TaskIcon source={pending}/>
-                    <Text color="#E620AE">Pendente</Text>
-                </TaskStatus>
-                <TaskAction>
-                    <TaskIcon source={edit}></TaskIcon>
-                    <TaskIcon source={excluir}></TaskIcon>
-                </TaskAction>
-            </TaskFooter>
-
-        </Task>
+                    <TaskFooter>
+                        <TaskStatus>
+                            <TaskIcon source={task.done ? done : pending} />
+                            <Text color={task.done ? '#2192D8' : '#E620AE'}>
+                                {task.done ? 'Feita' : 'Pendente'}
+                            </Text>
+                        </TaskStatus>
+                        <TaskAction>
+                            <TouchableOpacity onPress={() => alert("Abrir Modal de Edição")}>
+                                <TaskIcon source={edit}></TaskIcon>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => alert("Abrir Modal de Excluir")}>
+                                <TaskIcon source={excluir}></TaskIcon>
+                            </TouchableOpacity>
+                        </TaskAction>
+                    </TaskFooter>
+                </Task>
+            )}
+        />
     );
 }
